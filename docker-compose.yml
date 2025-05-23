@@ -1,0 +1,45 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .Docker/Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  db:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: silverstripe
+      MYSQL_USER: silverstripe
+      MYSQL_PASSWORD: password
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+volumes:
+  db-data:

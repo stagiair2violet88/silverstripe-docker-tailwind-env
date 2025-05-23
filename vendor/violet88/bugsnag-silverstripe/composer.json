@@ -1,0 +1,61 @@
+{
+    "name": "violet88/bugsnag-silverstripe",
+    "description": "A module to use Bugsnag in SilverStripe projects.",
+    "type": "silverstripe-vendormodule",
+    "keywords": [
+        "silverstripe",
+        "CMS",
+        "BugSnag",
+        "violet88"
+    ],
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "silverstripe/framework": "^4.0 || ^5.0",
+        "silverstripe/admin": "^1.0 || ^2.0",
+        "bugsnag/bugsnag": "^3.0",
+        "guzzlehttp/guzzle": "^5.0|^6.0|^7.0",
+        "silverstripe/recipe-cms": "^4 || ^5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.24",
+        "squizlabs/php_codesniffer": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Violet88\\BugsnagModule\\": "src/",
+            "Violet88\\BugsnagModule\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "expose": [
+            "client/dist"
+        ],
+        "project-files-installed": [
+            ".htaccess",
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mimevalidator.yml",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "web.config"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "silverstripe/vendor-plugin": true,
+            "silverstripe/recipe-plugin": true
+        }
+    }
+}

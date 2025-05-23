@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: DevEnv.Dockerfile
+    container_name: silverstripe-web
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+      - mailpit
+
+  db:
+    image: mysql:5.7
+    container_name: silverstripe-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: silverstripe
+      MYSQL_USER: silverstripe
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_USER: silverstripe
+      PMA_PASSWORD: password
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+volumes:
+  db_data:
